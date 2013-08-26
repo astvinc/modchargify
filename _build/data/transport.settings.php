@@ -1,41 +1,60 @@
 <?php
-/**
- * modExtra
- *
- * Copyright 2010 by Shaun McCormick <shaun+modextra@modx.com>
- *
- * modExtra is free software; you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.
- *
- * modExtra is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * modExtra; if not, write to the Free Software Foundation, Inc., 59 Temple
- * Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * @package modextra
- */
-/**
- * Loads system settings into build
- *
- * @package modextra
- * @subpackage build
- */
+
 $settings = array();
 
-/*
-$settings['gallery.']= $modx->newObject('modSystemSetting');
-$settings['gallery.']->fromArray(array(
-    'key' => 'gallery.',
+$settings['modchargify.api_key']= $modx->newObject('modSystemSetting');
+$settings['modchargify.api_key']->fromArray(array(
+    'key' => 'modchargify.api_key',
     'value' => '',
     'xtype' => 'textfield',
-    'namespace' => 'gallery',
-    'area' => '',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
 ),'',true,true);
-*/
+
+$settings['modchargify.shared_key']= $modx->newObject('modSystemSetting');
+$settings['modchargify.shared_key']->fromArray(array(
+    'key' => 'modchargify.shared_key',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
+),'',true,true);
+
+$settings['modchargify.shop_domain']= $modx->newObject('modSystemSetting');
+$settings['modchargify.shop_domain']->fromArray(array(
+    'key' => 'modchargify.shop_domain',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
+),'',true,true);
+
+$settings['modchargify.test_api_key']= $modx->newObject('modSystemSetting');
+$settings['modchargify.test_api_key']->fromArray(array(
+    'key' => 'modchargify.test_api_key',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
+),'',true,true);
+
+$settings['modchargify.test_shared_key']= $modx->newObject('modSystemSetting');
+$settings['modchargify.test_shared_key']->fromArray(array(
+    'key' => 'modchargify.test_shared_key',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
+),'',true,true);
+
+$settings['modchargify.test_shop_domain']= $modx->newObject('modSystemSetting');
+$settings['modchargify.test_shop_domain']->fromArray(array(
+    'key' => 'modchargify.test_shop_domain',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'modchargify',
+    'area' => 'authentication',
+),'',true,true);
+
 
 return $settings;

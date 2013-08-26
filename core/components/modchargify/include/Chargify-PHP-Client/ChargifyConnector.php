@@ -8,13 +8,11 @@ Reference Documentation: http://support.chargify.com/faqs/api/api-authentication
  
 ******************************************************************************************/
 class ChargifyConnector
-{    //'bzlVFa6vAw8OgAEmuSzY', 'my-happy-company.chargify.com', 'sV0JE8RcLlofE0aZhC'
-	private $api_key = 'bzlVFa6vAw8OgAEmuSzY';
-	private $test_api_key = 'bzlVFa6vAw8OgAEmuSzY';
-	private $domain = 'my-happy-company.chargify.com'; //your chargify domain, e.g. if you have [your-domain].chargify.com, then enter "your-domain" only.
-	private $test_domain = 'my-happy-company.chargify.com';
-        private $shared_key = 'sV0JE8RcLlofE0aZhC';
-        private $test_shared_key = 'sV0JE8RcLlofE0aZhC';
+{    
+	private $api_key;
+	private $test_api_key;
+	private $domain; //your chargify domain, e.g. if you have [your-domain].chargify.com, then enter "your-domain" only.
+	private $test_domain;
 	
 	private $active_api_key;
 	private $active_domain;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<model package="modchargify" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM">
+
+    <object class="ChargifyCustomers" table="oauth_access_tokens" extends="xPDOSimpleObject">
+        <field key="user_id" dbtype="varchar" precision="255" phptype="string" null="true" default=""  />
+        <field key="chargify_id" dbtype="varchar" precision="80" phptype="string" null="false" default=""  />
+    </object>
+    
+</model>
