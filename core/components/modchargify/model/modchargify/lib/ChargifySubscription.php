@@ -38,6 +38,7 @@ class ChargifySubscription
 	var $expires_at;
 	var $created_at;
 	var $updated_at;
+
 	
 	private $connector;
 	public function __construct(SimpleXMLElement $subscription_xml_node = null, $test_mode = false)

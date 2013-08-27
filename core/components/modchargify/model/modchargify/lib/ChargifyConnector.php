@@ -44,7 +44,7 @@ class ChargifyConnector
 		$this->password = 'x';
 	}
   
-	private function sendRequest($uri, $format = 'XML', $method = 'GET', $data = '') {
+	protected function sendRequest($uri, $format = 'XML', $method = 'GET', $data = '') {
             
         error_log($method.'-'.$uri);    
             

@@ -57,6 +57,7 @@ $category= $modx->newObject('modCategory');
 $category->set('id',1);
 $category->set('category',PKG_NAME);
 
+
 /* add snippets */
 $snippets = include $sources['data'].'transport.snippets.php';
 if (!is_array($snippets)) {
@@ -66,42 +67,34 @@ if (!is_array($snippets)) {
     $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
 }
 
+/* add chunks */
+$chunks = include $sources['data'].'transport.chunks.php';
+if (!is_array($chunks)) {
+    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
+} else {
+    $category->addMany($chunks);
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
+}
+
+
 /* create category vehicle */
 $attr = array(
-    xPDOTransport::UNIQUE_KEY => 'category',
-    xPDOTransport::PRESERVE_KEYS => false,
-    xPDOTransport::UPDATE_OBJECT => true,
-    xPDOTransport::RELATED_OBJECTS => true,
-    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-        'Children' => array(
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => true,
-            xPDOTransport::UNIQUE_KEY => 'category',
-            xPDOTransport::RELATED_OBJECTS => true,
-            xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
-                'Snippets' => array(
-                    xPDOTransport::PRESERVE_KEYS => false,
-                    xPDOTransport::UPDATE_OBJECT => true,
-                    xPDOTransport::UNIQUE_KEY => 'name',
-                ),
-                'Chunks' => array(
-                    xPDOTransport::PRESERVE_KEYS => false,
-                    xPDOTransport::UPDATE_OBJECT => true,
-                    xPDOTransport::UNIQUE_KEY => 'name',
-                ),
-            ),
-        ),
-        'Snippets' => array(
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => true,
-            xPDOTransport::UNIQUE_KEY => 'name',
-        ),
-        'Chunks' => array (
-            xPDOTransport::PRESERVE_KEYS => false,
-            xPDOTransport::UPDATE_OBJECT => true,
-            xPDOTransport::UNIQUE_KEY => 'name',
-        ),
+  xPDOTransport::UNIQUE_KEY => 'category',
+  xPDOTransport::PRESERVE_KEYS => false,
+  xPDOTransport::UPDATE_OBJECT => true,
+  xPDOTransport::RELATED_OBJECTS => true,
+  xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+    'Chunks' => array(
+        xPDOTransport::PRESERVE_KEYS => false,
+        xPDOTransport::UPDATE_OBJECT => true,
+        xPDOTransport::UNIQUE_KEY => 'name',
     ),
+    'Snippets' => array(
+        xPDOTransport::PRESERVE_KEYS => false,
+        xPDOTransport::UPDATE_OBJECT => true,
+        xPDOTransport::UNIQUE_KEY => 'name',
+    ),
+  ),
 );
 $vehicle = $builder->createVehicle($category,$attr);
 

@@ -1,6 +1,7 @@
 <?php
 
-require_once($modx->getOption('modchargify.core_path', null, $modx->getOption('core_path') . 'components/modchargify/') . 'include/Chargify-PHP-Client/Chargify.php');
+require_once('lib/Chargify.php');
+require_once ('subscription.class.php');
 
 class ModxChargifyConnector extends ChargifyConnector {
 
@@ -31,6 +32,34 @@ class ModxChargifyConnector extends ChargifyConnector {
         } else {
             $this->setActiveDomain($active_domain, $active_api_key);
         }
+    }
+    
+    
+    public function cancelSubscription($subscription_id, $cancellation_message, $format = 'XML') {
+            $chargify_subscription = new ModxChargifySubscription($this->modx,null, $this->test_mode);
+            $chargify_subscription->cancellation_message = $cancellation_message;
+            return $this->requestCancelSubscription($subscription_id, $chargify_subscription->getXML());		
+    }
+    
+    public function requestCancelSubscription($subscription_id, $subscriptionRequest, $format = 'XML') {
+            $extension = strtoupper($format) == 'XML' ? '.xml' : '.json';
+            $base_url = "/subscriptions/{$subscription_id}" . $extension;
+            $xml = $this->sendRequest($base_url, $format, 'DELETE', $subscriptionRequest);
+
+            if ($xml->code == 200) { //SUCCESS
+                    return true;
+            } else {
+                    $errors = new SimpleXMLElement($xml->response);
+                    throw new ChargifyValidationException($xml->code, $errors);
+            }		
+    }
+    	
+    public function getSubscriptionsByID($id)
+    {
+        $xml = $this->retrieveSubscriptionsByID($id);
+        $subscription = new SimpleXMLElement($xml);
+
+        return new ModxChargifySubscription($this->modx,$subscription, $this->test_mode);
     }
 
 }

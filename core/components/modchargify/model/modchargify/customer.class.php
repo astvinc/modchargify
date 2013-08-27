@@ -1,7 +1,7 @@
 <?php
 
-require_once($modx->getOption('modchargify.core_path', null, $modx->getOption('core_path') . 'components/modchargify/') . 'include/Chargify-PHP-Client/Chargify.php');
-require_once($modx->getOption('modchargify.core_path', null, $modx->getOption('core_path') . 'components/modchargify/') . 'model/modchargify/connector.class.php');
+require_once('lib/Chargify.php');
+require_once('connector.class.php');
 
 class ModxChargifyCustomer extends ChargifyCustomer {
 

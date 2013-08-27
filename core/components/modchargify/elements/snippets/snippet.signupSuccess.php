@@ -124,7 +124,7 @@ if ($event == 'signup_success') {
         $user = $modx->getObject('modUser',$userId);
         $profile = $user->getOne('Profile');
         $extended = $profile->get('extended');
-        $extended["chargifyId"] = $userId;
+        $extended["chargifyId"] = $chargifyId;
         $extended['membership'] = "paid";
         $profile->set('extended',$extended);
         $profile->save();
