@@ -21,6 +21,7 @@ class ModChargify {
             'assetsUrl' => $assetsUrl,
             'connectorUrl' => $assetsUrl . 'connector.php',
             'siteUrl' => $modx->getOption('site_url'),
+            'extendedFieldName' => 'Chargify_ID', 
             'limit' => '2',
             'outputSeparator' => '\n',
             'containerTpl' => 'chargifySubscriptionsTpl',
@@ -54,7 +55,7 @@ class ModChargify {
                 $user = $this->modx->getObject('modUser', $userId);
                 $profile = $user->getOne('Profile');
                 $extended = $profile->get('extended');
-                $subscription->customer_id = $extended["chargifyId"];
+                $subscription->customer_id = $extended[$this->config['extendedFieldName']];
             }
 
             if (isset($subscription->customer_id)) {
@@ -117,6 +118,9 @@ class ModChargify {
                 }
             } else {
                 $this->modx->log(modX::LOG_LEVEL_DEBUG, '[Chargify] Chargify customer id could not be found');
+                $output = $this->modx->getChunk($this->config['emptyTpl'], array(
+                        "empty_message" => $this->config['errorMsg']
+                    ));
             }
         } catch (Exception $e) {
             error_log($e);
