@@ -9,7 +9,7 @@
         <!-- info-inner-right start -->
         <div class="info-inner-right">
                 <a href="[[+cancel_url]]" class="sub-cancel">Cancel</a> 
-                <a href="[[+switch_url]]" class="ch-plan">Change Plan</a>
+                <!--<a href="[[+switch_url]]" class="ch-plan">Change Plan</a>-->
                 <div class="clear"></div> <!-- clear -->
         </div> <!-- info-inner-right end -->
 
@@ -28,7 +28,7 @@
 
         <!-- subscription-details-right start -->
         <div class="subscription-details-right info-inner-right">
-                <a href="[[+selfservice_url]]" class="manange-email">Update Credit Card Info</a>
+                <a target="_blank" href="[[+update-payment-url]]" class="manange-email">Update Credit Card Info</a>
         </div> <!-- subscription-details-right end -->
 
         <div class="clear"></div> <!-- clear -->

@@ -96,7 +96,8 @@ class ModChargify {
                             "product_name" => $product_name,
                             "payment" => $payment_output,
                             "billing_address" => $billing_output,
-                            "cancel_url" => $this->getCancelUrl($s->id)
+                            "cancel_url" => $this->getCancelUrl($s->id),
+                            "update-payment-url" => $this->getUpdatePaymentUrl($s->id)
                         ));
 
                         $count++;
@@ -148,6 +149,7 @@ class ModChargify {
         
     }
     
+    //INCOMPLETE
     function switchSubscription($subscriptionid = ''){
         
         if(!isset($subscriptionid)){
@@ -169,6 +171,8 @@ class ModChargify {
     }
     
     
+    
+    
     function getCancelUrl($subscriptionid) {
             $url = $this->config['siteUrl'];
             $cancelResourceId = $this->config['cancelResourceId'];
@@ -182,6 +186,33 @@ class ModChargify {
                     $url .= '?id='.$cancelResourceId.'&action=cancel&subscriptionid='.$subscriptionid;
             }
             return $url;
+    }
+    
+    
+    function getUpdatePaymentUrl($subscriptionid){
+        $this->modx->log(modX::LOG_LEVEL_DEBUG, '[Chargify] creating update payment url...');
+        $sharedkey = $this->modx->getOption('modchargify.shared_key');
+        if(!isset($sharedkey)){
+             $this->modx->log(modX::LOG_LEVEL_ERROR, '[Chargify] Shared key is not set on system settings...');
+            return '#';
+            
+        }
+        
+        if(!isset($subscriptionid)){
+            $this->modx->log(modX::LOG_LEVEL_ERROR, '[Chargify] Subscription id was not provided...');
+            return '#';
+            
+        }
+        
+        
+        $message = "update_payment--".$subscriptionid."--".$sharedkey;
+        $this->modx->log(modX::LOG_LEVEL_DEBUG, '[Chargify] message:'.$message);
+        $token = substr(sha1($message),0,10);
+        $this->modx->log(modX::LOG_LEVEL_DEBUG, '[Chargify] token:'.$token);
+        $domain = $this->modx->getOption('modchargify.shop_domain');
+        $url = "https://".$domain."/update_payment/".$subscriptionid."/".$token;
+        
+        return  $url;
     }
 
     public function getChunk($name, $properties = array()) {
