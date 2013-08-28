@@ -1,0 +1,1 @@
+<p>[[+empty_message]]</p>

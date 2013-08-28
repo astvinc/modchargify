@@ -8,7 +8,7 @@
 
         <!-- info-inner-right start -->
         <div class="info-inner-right">
-                <a href="[[+cancel_url]]" class="sub-cancel">Cancel</a> 
+                <a id="cancel-[[+subscription_id]]"href="[[+cancel_url]]" class="sub-cancel">Cancel</a> 
                 <!--<a href="[[+switch_url]]" class="ch-plan">Change Plan</a>-->
                 <div class="clear"></div> <!-- clear -->
         </div> <!-- info-inner-right end -->
@@ -47,3 +47,4 @@
         <div class="clear"></div> <!-- clear -->
 
 </div> <!-- subscription-details end -->
+

@@ -15,7 +15,7 @@ set_time_limit(0);
 define('PKG_NAME','modChargify');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
 define('PKG_VERSION','1.0.0');
-define('PKG_RELEASE','beta2');
+define('PKG_RELEASE','beta3');
 
 /* define sources */
 $root = dirname(dirname(__FILE__)).'/';
@@ -24,8 +24,7 @@ $sources = array(
     'build' => $root . '_build/',
     'data' => $root . '_build/data/',
     'resolvers' => $root . '_build/resolvers/',
-    'chunks' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/chunks/',
-    'snippets' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/snippets/',
+    'elements' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/',
     'plugins' => $root.'core/components/'.PKG_NAME_LOWER.'/elements/plugins/',
     'lexicon' => $root . 'core/components/'.PKG_NAME_LOWER.'/lexicon/',
     'docs' => $root.'core/components/'.PKG_NAME_LOWER.'/docs/',
@@ -98,13 +97,21 @@ $attr = array(
 );
 $vehicle = $builder->createVehicle($category,$attr);
 
-$modx->log(modX::LOG_LEVEL_INFO,'Adding file resolvers to category...');
-    $vehicle->resolve('php',array(
-        'source' => $sources['resolvers'] . 'resolve.setupoptions.php',
-    ));
-    $vehicle->resolve('php',array(
-        'source' => $sources['resolvers'] . 'resolve.paths.php',
-    ));
+/* add file resolvers */
+$vehicle->resolve('file',array(
+    'source' => $sources['source_core'],
+    'target' => "return MODX_CORE_PATH . 'components/';",
+));
+
+$vehicle->resolve('php',array(
+    'source' => $sources['resolvers'] . 'resolve.paths.php',
+));
+/* add setupoptions resolver */
+$vehicle->resolve('php',array(
+    'source' => $sources['resolvers'] . 'resolve.setupoptions.php',
+));
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in resolvers.'); flush();
+
 $builder->putVehicle($vehicle);
 
 /* load system settings */

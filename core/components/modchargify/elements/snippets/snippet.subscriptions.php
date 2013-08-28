@@ -5,30 +5,4 @@ $ModChargify = $modx->getService('modchargify', 'ModChargify', $modchargifyCoreP
 if (!($ModChargify instanceof ModChargify))
     return '';
 
-$action = 'list';
-
-if(empty($_REQUEST['action'])) {
-    $action = $modx->getOption('action', $scriptProperties, 'list');
-}else{
-    $action = $_REQUEST['action'];
-}
-
-
-$subscriptionid = '';
-if(!empty($_REQUEST['subscriptionid'])) {
-    $subscriptionid = $_REQUEST['subscriptionid'];   
-}
-
-$output = '';
-
-switch ($action) {
-    case 'cancel': $output = $ModChargify->cancelSubscription($subscriptionid);
-        break;
-    case 'switch': $output = $ModChargify->switchSubscription();
-        break;
-    case 'list':
-    default: $output = $ModChargify->getSubscriptionsByCustomer();
-        break;
-}
-
-return $output;
+return $ModChargify->getSubscriptionsByCustomer();

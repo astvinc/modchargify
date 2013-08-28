@@ -57,6 +57,10 @@ class ModxChargifyConnector extends ChargifyConnector {
     public function getSubscriptionsByID($id)
     {
         $xml = $this->retrieveSubscriptionsByID($id);
+        
+        if(empty($xml))
+            return null;
+        
         $subscription = new SimpleXMLElement($xml);
 
         return new ModxChargifySubscription($this->modx,$subscription, $this->test_mode);
